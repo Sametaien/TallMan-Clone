@@ -8,6 +8,7 @@ using UnityEngine;
 public class GateSystem : MonoBehaviour
 {
     public Transform player;
+    public GameObject Player;
     public TMP_Text text;
     public float positiveValue;
     public float negativeValue;
@@ -17,6 +18,7 @@ public class GateSystem : MonoBehaviour
     public Color NegativeColor = Color.red;
     public GateSystemState _state = GateSystemState.Default;
     public GateSystemType _type = GateSystemType.Positive;
+    private PlayerMovement _playerMovement;
 
     public enum GateSystemState
     {
@@ -35,6 +37,7 @@ public class GateSystem : MonoBehaviour
 
     private void Start()
     {
+        _playerMovement = Player.GetComponent<PlayerMovement>();
         RandomNegativeValue();
         RandomPositiveValue();
     }
@@ -50,12 +53,14 @@ public class GateSystem : MonoBehaviour
                 case GateSystemState.Taller:
                     _state = GateSystemState.Taller;
                     MakeTaller(positiveValue);
+                    _playerMovement.Health(positiveValue);
                     spriteRenderer.color = PositiveColor;
                     Debug.Log("Player is taller");
                     break;
                 case GateSystemState.Shorter:
                     _state = GateSystemState.Shorter;
                     MakeShorter(negativeValue);
+                    _playerMovement.Health(negativeValue);
                     Debug.Log("Player is shorter");
                     break;
                 case GateSystemState.Fat:

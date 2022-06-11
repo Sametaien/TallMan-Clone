@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Negative
   - Positive
+  - Gem
+  - Prop
+  - JumpTarget
   layers:
   - Default
   - TransparentFX
